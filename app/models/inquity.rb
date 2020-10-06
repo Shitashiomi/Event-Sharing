@@ -1,0 +1,2 @@
+class Inquity < ApplicationRecord
+end
