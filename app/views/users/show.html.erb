@@ -1,23 +1,13 @@
-<p id="notice"><%= notice %></p>
+<h2>マイページ</h2>
 
-<h1>イベントカレンダー</h1>
+<div class="profile-container">
+  <%= attachment_image_tag(@user, :profile_image_id, :fill, 100, 100, fallback: "no-image.jpg") %>
+  <h3>ユーザー名</h3>
+  <h3 class="profile-name"><%= @user.name %></h3>
 
-<div id="calendar"></div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th colspan="5"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @events.each do |event| %>
+<% @events.each do |event| %>
       <tr>
         <td><%= attachment_image_tag(event, :image, :fill, 200, 200, fallback: "no-image.jpg") %></td>
         <td><%= event.title %></td>
@@ -34,6 +24,6 @@
   </tbody>
 </table>
 
-<br>
+<%= link_to "プロフィールを編集する", edit_user_path(@user.id) %>
 
-<%= link_to 'イベント新規登録', new_event_path %>
+<%= paginate @events %>

@@ -1,24 +1,67 @@
 <p id="notice"><%= notice %></p>
 
+<%= attachment_image_tag(@event, :image, :fill, 200, 200, fallback: "no-image.jpg") %>
+
+<% if @event.favorited_by?(current_user) %>
+<li>
+  <%= link_to event_favorites_path(@event), method: :delete do %>
+    <i class="far fa-thumbs-up" aria-hidden="true" style="color: red;"></i>
+    <%= @event.favorites.count %> いいね
+  <% end %>
+</li>
+<% else %>
+<li>
+<%= link_to event_favorites_path(@event), method: :post do %>
+    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+    <%= @event.favorites.count %> いいね
+  <% end %>
+</li>
+<% end %>
+
 <p>
-  <strong>Title:</strong>
+  <strong>イベント名:  </strong>
   <%= @event.title %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>イベント内容:  </strong>
   <%= @event.description %>
 </p>
 
 <p>
-  <strong>Start date:</strong>
+  <strong>イベントジャンル:  </strong>
+  <%= @event.genre %>
+</p>
+
+<p>
+  <strong>イベント開始日:  </strong>
   <%= @event.start_date %>
 </p>
 
 <p>
-  <strong>End date:</strong>
+  <strong>イベント終了日:  </strong>
   <%= @event.end_date %>
 </p>
+<p>
+<%= form_for [@event,@event_comment] do |f| %>
+  <%= f.text_area :comment, placeholder: "コメントを書いてください" %>
+  <%= f.submit "コメント送信",class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+  <% end %>
+</p>
+
+<p>
+<% @event.event_comments.each do |event_comment| %>
+  <% if event_comment.user.id == current_user.id %>
+    <%= event_comment.user.name %>
+    <%= event_comment.comment %>
+    <%= link_to "コメント削除", event_event_comment_path(event_comment.event,event_comment), method: :delete, class: "btn btn-danger pull-right" %>
+   <% end %>
+<% end %>
+</p>
+
+<% if @event.user == current_user %>
+  <p><%= link_to 'このイベントを削除しますか？', @event, method: :delete, data: { confirm: "本当に削除しますか?" } %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

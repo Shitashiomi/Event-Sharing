@@ -12,8 +12,17 @@
   <% end %>
 
   <div class="field">
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genre %>
+    <%= form.select :genre,["イベント","お祭り","マルシェ","花火大会","フリーマーケット","フェス"], include_blank: "選択して下さい" %>
   </div>
 
   <div class="field">
@@ -32,6 +41,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "登録する", class:"btn btn-primary btn-md" %>
   </div>
 <% end %>
