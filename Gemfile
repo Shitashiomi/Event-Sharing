@@ -70,3 +70,9 @@ gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem "geocoder"
+gem 'ransack'
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
