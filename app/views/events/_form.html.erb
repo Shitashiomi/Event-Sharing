@@ -16,27 +16,32 @@
   </div>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :イベントタイトル %>
+    <%= form.text_field :title, placeholder: "イベントタイトル" %>
   </div>
 
   <div class="field">
-    <%= form.label :genre %>
+    <%= form.label :開催場所 %>
+    <%= form.text_field :address, placeholder: "(例) 奈良公園" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ジャンル選択 %>
     <%= form.select :genre,["イベント","お祭り","マルシェ","花火大会","フリーマーケット","フェス"], include_blank: "選択して下さい" %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.label :イベント内容 %>
+    <%= form.text_area :description, placeholder: "イベント内容を記載してください" %>
   </div>
 
   <div class="field">
-    <%= form.label :start_date %>
+    <%= form.label :開催日＆時間 %>
     <%= form.datetime_select :start_date %>
   </div>
 
   <div class="field">
-    <%= form.label :end_date %>
+    <%= form.label :終了日＆時間 %>
     <%= form.datetime_select :end_date %>
   </div>
 

@@ -3,25 +3,71 @@
 <%= attachment_image_tag(@event, :image, :fill, 200, 200, fallback: "no-image.jpg") %>
 
 <% if @event.favorited_by?(current_user) %>
-<li>
+<p>
   <%= link_to event_favorites_path(@event), method: :delete do %>
     <i class="far fa-thumbs-up" aria-hidden="true" style="color: red;"></i>
     <%= @event.favorites.count %> いいね
   <% end %>
-</li>
+</p>
 <% else %>
-<li>
+<p>
 <%= link_to event_favorites_path(@event), method: :post do %>
     <i class="fas fa-thumbs-up" aria-hidden="true"></i>
     <%= @event.favorites.count %> いいね
   <% end %>
-</li>
+</p>
 <% end %>
 
 <p>
   <strong>イベント名:  </strong>
   <%= @event.title %>
 </p>
+
+<p>
+  <strong>開催場所:  </strong>
+  <%= @event.address %>
+</p>
+<script type="text/javascript">
+  function initMap() {
+    console.log("initMap");
+    var test ={lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
+    // var test = { lat: 35.7091844, lng: 139.7317595 }
+    var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+              });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '住所：<%= @event.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+ // #Map上の指定した位置にピンを挿して表示する
+    var marker = new google.maps.Marker({
+                  position:test,
+                  map: map,
+                  title: contentString
+                 });
+
+     marker.addListener('click', function() {
+       infowindow.open(map, marker);
+     });
+  }
+</script>
+
+<script async defer
+              src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+</script>
+
+<style type="text/css">
+  #map { height: 200px;
+         width: 400px;}
+</style>
+
+<!-- #mapの表示 -->
+<div id="map"></div>
 
 <p>
   <strong>イベント内容:  </strong>
@@ -42,12 +88,11 @@
   <strong>イベント終了日:  </strong>
   <%= @event.end_date %>
 </p>
-<p>
-<%= form_for [@event,@event_comment] do |f| %>
-  <%= f.text_area :comment, placeholder: "コメントを書いてください" %>
-  <%= f.submit "コメント送信",class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+<p><%= form_for [@event,@event_comment] do |f| %>
+    <%= f.text_area :comment, placeholder: "コメントを書いてください" %></p>
+    <p><%= f.submit "コメント送信",class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
   <% end %>
-</p>
+
 
 <p>
 <% @event.event_comments.each do |event_comment| %>

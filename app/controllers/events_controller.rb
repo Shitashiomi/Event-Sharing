@@ -1,37 +1,33 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
-  # GET /events
-  # GET /events.json
+
   def index
-    @events = Event.all
+    @events = Event.all.order(id: :desc)
+    @all_ranks = Event.find(Favorite.group(:event_id).order('count(event_id) desc').limit(3).pluck(:event_id))
+    @search = Event.ransack(params[:q]) #ransackメソッド推奨
+    @search_events = @search.result.page(params[:page]).per(5).order(id: :desc)
   end
 
-  # GET /events/1
-  # GET /events/1.json
   def show
     @event = Event.find(params[:id])
     @event_comment = EventComment.new
   end
 
-  # GET /events/new
   def new
     @event = Event.new
   end
 
-  # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
   end
 
-  # POST /events
-  # POST /events.json
   def create
      @user = current_user
     @event = Event.new(event_params)
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: 'イベントの投稿が完了しました' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -40,12 +36,10 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1
-  # PATCH/PUT /events/1.json
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to @event, notice: 'イベントの編集が完了しました' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }
@@ -54,12 +48,10 @@ class EventsController < ApplicationController
     end
   end
 
-  # DELETE /events/1
-  # DELETE /events/1.json
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to events_url, notice: 'イベントの削除が完了しました' }
       format.json { head :no_content }
     end
   end
@@ -72,6 +64,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:title, :description, :start_date, :end_date, :image, :genre).merge(user_id: current_user.id)
+      params.require(:event).permit(:title, :description, :start_date, :end_date, :image, :genre, :address, :latitude, :longitude).merge(user_id: current_user.id)
     end
 end

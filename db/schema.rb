@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_103716) do
+ActiveRecord::Schema.define(version: 2020_10_08_021048) do
 
   create_table "event_comments", force: :cascade do |t|
     t.text "comment"
@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 2020_10_07_103716) do
     t.datetime "updated_at", null: false
     t.string "image_id"
     t.integer "user_id"
-    t.string "place"
     t.integer "genre"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "favorites", force: :cascade do |t|

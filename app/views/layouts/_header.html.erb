@@ -1,0 +1,33 @@
+<header class="drawer-navbar " role="banner">
+  <div class="drawer-container">
+    <div class="drawer-navbar-header">
+      <a class="drawer-brand" href="root_path">Event_Sharing</a>
+      <button type="button" class="drawer-toggle drawer-hamburger">
+        <span class="sr-only">toggle navigation</span>
+        <span class="drawer-hamburger-icon"></span>
+      </button>
+    </div>
+    <nav class="drawer-nav" role="navigation">
+      <ul class="drawer-menu drawer-menu--right">
+      	<% if user_signed_in? %>
+          <li>
+            <dl class="searchbox">
+                <%= search_form_for @search, url: events_path do |f| %>
+                      <dt><%= f.text_field :title_cont ,placeholder: '検索するテキストを入力...' %></dt>
+                        <dd><%= f.submit ("検索") , class: 'search-btn'%></dd>
+                    <% end %>
+                  </dl>
+                </li>
+                <li><%= link_to ' マイページ', user_path(current_user), class: 'glyphicon glyphicon-home home' %></li>
+                <li><%= link_to ' イベント一覧', events_path, class: 'glyphicon glyphicon-book books' %></li>
+                <li><%= link_to ' お問い合わせ', new_inquity_path, class: 'glyphicon glyphicon-envelope' %></li>
+                <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out logout' %></li>
+              <% else %>
+                <li><%= link_to ' 新規登録', new_user_registration_path, class: 'glyphicon glyphicon-edit sign_up' %></li>
+                <li><%= link_to ' ログイン', new_user_session_path, class: 'glyphicon glyphicon-log-in sign_in' %></li>
+              <% end %>
+          </ul>
+      </nav>
+  </div>
+
+</header>
