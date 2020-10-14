@@ -1,28 +1,41 @@
-<h2>マイページ</h2>
+<div class="row">
+  <h2>マイページ</h2>
+  </div>
 
-<div class="profile-container">
-  <%= attachment_image_tag(@user, :profile_image_id, :fill, 100, 100, fallback: "no-image.jpg") %>
-  <h3>ユーザー名</h3>
-  <h3 class="profile-name"><%= @user.name %></h3>
+<div class="row">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ユーザー名</th>
+      <th>自己紹介</th>
+    </tr>
+  </thead>
 
-</div>
-
-<% @events.each do |event| %>
-      <tr>
-        <td><%= attachment_image_tag(event, :image, :fill, 200, 200, fallback: "no-image.jpg") %></td>
-        <td><%= event.title %></td>
-        <td><%= event.description %></td>
-        <td><%= event.genre %></td>
-        <td><%= event.start_date %></td>
-        <td><%= event.end_date %></td>
-        <td><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></td>
-        <td><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      </tr>
-    <% end %>
+  <tbody>
+    <tr>
+      <td><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no-image.jpg") %></td>
+      <td><%= @user.name %></td>
+      <td><%= @user.introduction %></td>
+    </tr>
   </tbody>
 </table>
+
+<%= link_to "プロフィールを編集する", edit_user_path(@user.id) %>
+
+<% @events.each do |event| %>
+  <p><%= attachment_image_tag(event, :image, :fill, 200, 200, fallback: "no-image.jpg") %></p>
+  <p><%= event.title %></p>
+  <p><%= event.description %></p>
+  <p><%= event.genre %></p>
+  <p><%= event.start_date %></p>
+  <p><%= event.end_date %></p>
+  <p><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></p>
+  <p><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></p>
+  <p><%= link_to 'Show', event %></p>
+  <p><%= link_to 'Edit', edit_event_path(event) %></p>
+<% end %>
+
 
 <%= link_to "プロフィールを編集する", edit_user_path(@user.id) %>
 

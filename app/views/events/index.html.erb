@@ -1,39 +1,71 @@
 <p id="notice"><%= notice %></p>
 
-<h1>イベントカレンダー</h1>
+<h2>イベントカレンダー</h2>
+<div id='container2'>
+  <div id="calendar"></div>
+</div>
 
-<div id="calendar"></div>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th colspan="5"></th>
-    </tr>
-  </thead>
+  <h2>最新イベント投稿一覧</h2>
+    <% @search_events.each do |event| %>
+    <div class="events">
+      <h3><%= event.title %></h3>
+        <div class="event_content">
+          <div class="event_img">
+            <%= attachment_image_tag(event, :image, :fill,50, 50, fallback: "no-image.jpg") %>
+          </div>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= attachment_image_tag(event, :image, :fill, 200, 200, fallback: "no-image.jpg") %></td>
-        <td><%= event.title %></td>
-        <td><%= event.description %></td>
-        <td><%= event.genre %></td>
-        <td><%= event.start_date %></td>
-        <td><%= event.end_date %></td>
-        <td><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></td>
-        <td><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+           <div class="event_schedule">
+             <ul>
+               <li><span>開催場所</span>
+                 <%= event.address %></li>
 
-<br>
+               <li><span>開催場所</span>
+                <%= event.start_date %>
+                <%= event.end_date %></li>
+
+                <li><span>イベントジャンル</span>
+                  <%= event.genre %></li>
+
+                <li><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></li>
+                <li><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></li>
+                <li><%= link_to '詳細を見る', event %></li>
+             </ul>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<h2>いいねランキング上位1〜3位</h2>
+<% @all_ranks.each.with_index(1) do |event, i| %>
+  <p>ランク：<b><%= i %>位</b></p>
+    <div class="events">
+      <h3><%= event.title %></h3>
+        <div class="event_content">
+          <div class="event_img">
+            <%= attachment_image_tag(event, :image, :fill,50, 50, fallback: "no-image.jpg") %>
+          </div>
+
+           <div class="event_schedule">
+             <ul>
+               <li><span>開催場所</span>
+                 <%= event.address %></li>
+
+               <li><span>開催場所</span>
+                <%= event.start_date %>
+                <%= event.end_date %></li>
+
+                <li><span>イベントジャンル</span>
+                  <%= event.genre %></li>
+
+                <li><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></li>
+                <li><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></li>
+                <li><%= link_to '詳細を見る', event %></li>
+             </ul>
+        </div>
+      </div>
+    </div>
+<% end %>
+
 
 <%= link_to 'イベント新規登録', new_event_path %>

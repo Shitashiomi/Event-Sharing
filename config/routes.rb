@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :inquities,only: [:new, :create]
   resources :genres
   resources :events do
+    collection do
+      get :search
+    end
   	resources :event_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end

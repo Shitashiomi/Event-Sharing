@@ -4,21 +4,22 @@
 <%= form_for(@user) do |f| %>
 
   <div class="field">
+    <%= f.label :プロフィール画像 %>
     <%= f.file_field :profile_image %>
   </div>
 
   <div class="field">
-    <%= f.label :name %>
+    <%= f.label :ユーザー名 %>
 	<%= f.text_field :name, class: "name" %>
   </div>
 
   <div class="field">
-    <%= f.label :email %>
+    <%= f.label :メールアドレス %>
 	<%= f.text_field :email, class: "email" %>
   </div>
 
    <div class="field">
-    <%= f.label :introduction %>
+    <%= f.label :自己紹介 %>
 	<%= f.text_area :introduction, class: "introduction" %>
   </div>
 

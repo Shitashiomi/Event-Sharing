@@ -1,0 +1,12 @@
+
+<h4>お問い合わせフォーム</h4>
+
+<p id="notice"><%= notice %></p>
+
+<%= form_with(model: @inquity, local: true) do |f| %>
+  <%= f.label :お名前 %><br>
+  <%= f.text_field :inquity_name, size: 80 %><br>
+  <%= f.label :お問い合わせ内容 %><br>
+  <%= f.text_field :message, size: 80 %><br>
+  <%= f.submit '送信' %>
+<% end %>
