@@ -48,19 +48,19 @@ body {
 }
 
 .image1 {
-  background-image: image-url(event.jpg);
+  background-image: image-url("event.jpg");
 }
 
 .image2 {
-  background-image: image-url(hanabi.jpg);
+  background-image: image-url("hanabi.jpg");
 }
 
 .image3 {
-  background-image: image-url(yoyo.jpg);
+  background-image: image-url("yoyo.jpg");
 }
 
 .image4 {
-  background-image: image-url(toukae.jpg);
+  background-image: image-url("toukae.jpg");
 }
 
 dl.searchbox{
