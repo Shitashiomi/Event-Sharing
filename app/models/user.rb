@@ -9,4 +9,10 @@ class User < ApplicationRecord
   has_many :event_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  validates :name,
+  uniqueness: { case_sensitive: :false },
+  length: { minimum: 4, maximum: 20 }
+  validates :email, presence: true
+  validates :password, presence: true
+
 end

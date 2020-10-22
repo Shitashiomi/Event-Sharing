@@ -13,11 +13,7 @@ class Event < ApplicationRecord
 
     # 引数で渡されたuser_idがfavoritesテーブル内に存在(exists?)するか調べる
 	def favorited_by?(user)
-	  if favorites.where(user_id: user.id).exists?
-	  	return true
-	  else
-	  	return false
-	  end
+	  favorites.where(user_id: user.id).exists?
 	end
 
 	# バリデーションの設定によりエラーの検知

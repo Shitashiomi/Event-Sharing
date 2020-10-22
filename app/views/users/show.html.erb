@@ -1,42 +1,62 @@
-<div class="row">
-  <h2>マイページ</h2>
+  <div class="wrapper">
+    <div class="row">
+      <h2>マイページ</h2>
+    </div>
+
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>ユーザー名</th>
+            <th>自己紹介</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no-image.jpg", class: 'no-image-item') %></td>
+            <td><%= @user.name %></td>
+            <td><%= @user.introduction %></td>
+            <% if @user.id == current_user.id %>
+            <td><%= link_to "プロフィールを編集する", edit_user_path(@user.id) %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+
+      <% @events.each do |event| %>
+        <%= link_to(event_path(event), class: 'event-list') do %>
+          <div class="events">
+            <h3><%= event.title %></h3>
+              <div class="event_content">
+                <div class="event_img">
+                  <%= attachment_image_tag(event, :image, :fill, 100, 100, fallback: "no-image.jpg") %>
+                </div>
+
+                <div class="event_schedule">
+                  <ul>
+                    <li><span>開催場所</span>
+                      <%= event.address %></li>
+                    <li><span>開始日程</span>
+                      <%= event.start_date.strftime('%Y/%m/%d %H:%M') %></li>
+                    <li><span>終了日程</span>
+                      <%= event.end_date.strftime('%Y/%m/%d %H:%M') %></li>
+                    <li><span>イベントジャンル</span>
+                      <%= event.genre %></li>
+                    <li><%= link_to "#{event.event_comments.count}", event_path(event.id), class: "far fa-comments fa-1x" %></li>
+                    <li><%= link_to "#{event.favorites.count}", event_path(event.id), class: "fas fa-thumbs-up fa-1x" %></li>
+                    <li><%= link_to '詳細を見る', event %></li>
+                    <% if @user.id == current_user.id %>
+                      <li><%= link_to 'このイベントを編集する', edit_event_path(event) %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-<div class="row">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>ユーザー名</th>
-      <th>自己紹介</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no-image.jpg") %></td>
-      <td><%= @user.name %></td>
-      <td><%= @user.introduction %></td>
-    </tr>
-  </tbody>
-</table>
-
-<%= link_to "プロフィールを編集する", edit_user_path(@user.id) %>
-
-<% @events.each do |event| %>
-  <p><%= attachment_image_tag(event, :image, :fill, 200, 200, fallback: "no-image.jpg") %></p>
-  <p><%= event.title %></p>
-  <p><%= event.description %></p>
-  <p><%= event.genre %></p>
-  <p><%= event.start_date %></p>
-  <p><%= event.end_date %></p>
-  <p><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></p>
-  <p><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></p>
-  <p><%= link_to 'Show', event %></p>
-  <p><%= link_to 'Edit', edit_event_path(event) %></p>
-<% end %>
-
-
-<%= link_to "プロフィールを編集する", edit_user_path(@user.id) %>
-
-<%= paginate @events %>
