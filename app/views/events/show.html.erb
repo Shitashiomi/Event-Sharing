@@ -1,112 +1,127 @@
-<p id="notice"><%= notice %></p>
+<div class="wrapper">
+  <p id="notice"><%= notice %></p>
+  <div class="show-main">
+  <div class="show-event">
+    <div class="show-event-container">
+    <%= attachment_image_tag(@event, :image, :fill, 300, 400, fallback: "no-image.jpg") %>
 
-<%= attachment_image_tag(@event, :image, :fill, 200, 200, fallback: "no-image.jpg") %>
+    <div class="favorite-content">
+      <% if @event.favorited_by?(current_user) %>
+        <%= link_to event_favorites_path(@event), method: :delete do %>
+          <i class="far fa-thumbs-up" aria-hidden="true" style="color: red;"></i>
+            <%= @event.favorites.count %> いいね
+        <% end %>
+      <% else %>
+        <%= link_to event_favorites_path(@event), method: :post do %>
+          <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+            <%= @event.favorites.count %> いいね
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
-<% if @event.favorited_by?(current_user) %>
-<p>
-  <%= link_to event_favorites_path(@event), method: :delete do %>
-    <i class="far fa-thumbs-up" aria-hidden="true" style="color: red;"></i>
-    <%= @event.favorites.count %> いいね
-  <% end %>
-</p>
-<% else %>
-<p>
-<%= link_to event_favorites_path(@event), method: :post do %>
-    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
-    <%= @event.favorites.count %> いいね
-  <% end %>
-</p>
-<% end %>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="table_item_color">イベント名</td>
+            <td><%= @event.title %></td>
+          </tr>
+          <tr>
+            <td class="table_item_color">開催日程</td>
+            <td><%= @event.start_date.strftime('%Y/%m/%d %H:%M') %>〜
+                <%= @event.end_date.strftime('%Y/%m/%d %H:%M') %></td>
+          </tr>
+          <tr>
+            <td class="table_item_color">開催場所</td>
+            <td><%= @event.address %>
 
-<p>
-  <strong>イベント名:  </strong>
-  <%= @event.title %>
-</p>
+          <!-- googlemapのコードここまで -->
+            <script type="text/javascript">
+　　　　　      function initMap() {
+                console.log("initMap");
+                  var test ={lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 15,
+                  center: test
+                  });
+                  var transitLayer = new google.maps.TransitLayer();
+                  transitLayer.setMap(map);
 
-<p>
-  <strong>開催場所:  </strong>
-  <%= @event.address %>
-</p>
-<script type="text/javascript">
-  function initMap() {
-    console.log("initMap");
-    var test ={lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
-    // var test = { lat: 35.7091844, lng: 139.7317595 }
-    var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 15,
-              center: test
-              });
-    var transitLayer = new google.maps.TransitLayer();
-    transitLayer.setMap(map);
+                  var contentString = '住所：<%= @event.address %>';
+                  var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+                  });
 
-    var contentString = '住所：<%= @event.address %>';
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-
- // #Map上の指定した位置にピンを挿して表示する
-    var marker = new google.maps.Marker({
+                  // #Map上の指定した位置にピンを挿して表示する
+                  var marker = new google.maps.Marker({
                   position:test,
                   map: map,
                   title: contentString
-                 });
+                  });
 
-     marker.addListener('click', function() {
-       infowindow.open(map, marker);
-     });
-  }
-</script>
+                  marker.addListener('click', function() {
+                  infowindow.open(map, marker);
+                  });
+                }
+            </script>
 
-<script async defer
-              src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
-</script>
+            <script async defer
+               src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+            </script>
 
-<style type="text/css">
-  #map { height: 200px;
-         width: 400px;}
-</style>
+            <!-- mapの大きさ変更 -->
+            <style type="text/css">
+              #map { height: 200px;
+                     width: 400px;}
+            </style>
 
-<!-- #mapの表示 -->
-<div id="map"></div>
+            <!-- #mapの表示 -->
+            <div id="map"></div></td>
+          </tr>
+　　　　　　<!--ここまで-->
 
-<p>
-  <strong>イベント内容:  </strong>
-  <%= @event.description %>
-</p>
+          <tr>
+            <td class="table_item_color">イベント内容</td>
+            <td><%= @event.description %></td>
+          </tr>
+          <tr>
+            <td class="table_item_color">ジャンル</td>
+            <td><%= @event.genre %></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
 
-<p>
-  <strong>イベントジャンル:  </strong>
-  <%= @event.genre %>
-</p>
+    <div class="event-comment">
+      <%= form_for [@event,@event_comment] do |f| %>
+        <%= f.text_area :comment, placeholder: "コメントを書いてください",:size => "40*40" %>
+          <%= f.submit "コメント送信",class: "btn btn-sx btn-warning" %>
+      <% end %>
 
-<p>
-  <strong>イベント開始日:  </strong>
-  <%= @event.start_date %>
-</p>
-
-<p>
-  <strong>イベント終了日:  </strong>
-  <%= @event.end_date %>
-</p>
-<p><%= form_for [@event,@event_comment] do |f| %>
-    <%= f.text_area :comment, placeholder: "コメントを書いてください" %></p>
-    <p><%= f.submit "コメント送信",class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-  <% end %>
-
-
-<p>
-<% @event.event_comments.each do |event_comment| %>
-  <% if event_comment.user.id == current_user.id %>
-    <%= event_comment.user.name %>
-    <%= event_comment.comment %>
-    <%= link_to "コメント削除", event_event_comment_path(event_comment.event,event_comment), method: :delete, class: "btn btn-danger pull-right" %>
-   <% end %>
-<% end %>
-</p>
-
-<% if @event.user == current_user %>
-  <p><%= link_to 'このイベントを削除しますか？', @event, method: :delete, data: { confirm: "本当に削除しますか?" } %></p>
-<% end %>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+      <table>
+        <% @event.event_comments.each do |event_comment| %>
+          <tr>
+            <td class="show-comment">
+              <%= link_to user_path(event_comment.user), class: "user_#{event_comment.user.id}" do %>
+                <%= attachment_image_tag(event_comment.user, :profile_image, :fill,50, 50, fallback: "no-image.jpg", class: 'no-image-item') %><br>
+                  <%= event_comment.user.name %>
+              <% end %>
+            </td>
+            <td class="show-comment">
+              <%= event_comment.comment %>
+            </td>
+              <% if event_comment.user.id == current_user.id %>
+                <td><%= link_to "コメント削除", event_event_comment_path(event_comment.event,event_comment), method: :delete, class: "btn btn-danger pull-right" %>
+                </td>
+              <% end %>
+          </tr>
+        <% end %>
+      </table>
+        <% if @event.user.id == current_user.id %>
+          <p><%= link_to 'このイベントを削除しますか？', @event, method: :delete, data: { confirm: "本当に削除しますか?" } %></p>
+          <p><%= link_to 'イベント編集', edit_event_path(@event) %></p>
+          <p><%= link_to 'イベント一覧へ戻る', events_path %></p>
+        <% end %>
+      </div>
+    </div>
+</div>

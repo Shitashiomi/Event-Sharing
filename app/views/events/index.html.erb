@@ -1,13 +1,16 @@
+<div class="wrapper">
 <p id="notice"><%= notice %></p>
-
 <h2>イベントカレンダー</h2>
 <div id='container2'>
   <div id="calendar"></div>
 </div>
 
+<%= link_to "イベント新規登録", new_event_path, class: "btn btn-success new_event_btn" %>
+
 
   <h2>最新イベント投稿一覧</h2>
     <% @search_events.each do |event| %>
+      <%= link_to(event_path(event), class: 'event-list') do %>
     <div class="events">
       <h3><%= event.title %></h3>
         <div class="event_content">
@@ -20,25 +23,29 @@
                <li><span>開催場所</span>
                  <%= event.address %></li>
 
-               <li><span>開催場所</span>
-                <%= event.start_date %>
-                <%= event.end_date %></li>
+               <li><span>イベント開始日程</span>
+                 <%= event.start_date.strftime('%Y/%m/%d %H:%M') %></li>
+
+               <li><span>イベント終了日程</span>
+                 <%= event.end_date.strftime('%Y/%m/%d %H:%M') %></li>
 
                 <li><span>イベントジャンル</span>
                   <%= event.genre %></li>
 
-                <li><%= link_to "#{event.event_comments.count} コメント", event_path(event.id) %></li>
-                <li><%= link_to "#{event.favorites.count} いいね", event_path(event.id) %></li>
+                <li><%= link_to "#{event.event_comments.count}", event_path(event.id), class: "far fa-comments fa-1x" %></li>
+                <li><%= link_to "#{event.favorites.count}", event_path(event.id), class: "fas fa-thumbs-up fa-1x" %></li>
                 <li><%= link_to '詳細を見る', event %></li>
              </ul>
         </div>
       </div>
     </div>
+    <% end %>
 <% end %>
 
 <h2>いいねランキング上位1〜3位</h2>
 <% @all_ranks.each.with_index(1) do |event, i| %>
   <p>ランク：<b><%= i %>位</b></p>
+  <%= link_to(event_path(event), class: 'event-list') do %>
     <div class="events">
       <h3><%= event.title %></h3>
         <div class="event_content">
@@ -65,7 +72,9 @@
         </div>
       </div>
     </div>
+    <% end %>
 <% end %>
+</div>
 
 
-<%= link_to 'イベント新規登録', new_event_path %>
+

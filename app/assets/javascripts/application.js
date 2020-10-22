@@ -66,7 +66,13 @@
                 eventColor: '#63ceef',
                 //イベントの文字色を変える
                 eventTextColor: '#000000',
+                displayEventTime: false,
             });
+//             var newEvent = new Object();
+// 　　　　　　　　newEvent.title = "Something";
+// 　　　　　　　　newEvent.start = new Date();
+// 　　　　　　　　newEvent.allDay = false;
+// 　　　　　　　　newEvent.className = "hideCalendarTime";
         }
         // ここまで
 
@@ -97,28 +103,29 @@
     });
           //ここまで
 
-/*
-$(document).ready(function () {
-  $("#theTarget").skippr({
-    // スライドショーの変化 ("fade" or "slide")
-    transition : 'slide',
-    // 変化に係る時間(ミリ秒)
-    speed : 1000,
-    // easingの種類
-    easing : 'easeOutQuart',
-    // ナビゲーションの形("block" or "bubble")
-    navType : 'block',
-    // 子要素の種類("div" or "img")
-    childrenElementType : 'div',
-    // ナビゲーション矢印の表示(trueで表示)
-    arrows : true,
-    // スライドショーの自動再生(falseで自動再生なし)
-    autoPlay : true,
-    // 自動再生時のスライド切替間隔(ミリ秒)
-    autoPlayDuration : 3000,
-    // キーボードの矢印キーによるスライド送りの設定(trueで有効)
-    keyboardOnAlways : true,
-    // 一枚目のスライド表示時に戻る矢印を表示するかどうか(falseで非表示)
-    hidePrevious : false
-  });
-});*/
+          $(function(){
+            // #back-to-topを消す
+            $("#back-to-top").hide();
+
+            // スクロールが十分された時に#back-to-topを表示。スクロールされたら非表示
+            $(window).scroll(function(){
+            // this(window要素)がどれだけスクロールしたかをscrollTop()を使って値を取る
+            $('#pos').text($(this).scrollTop());
+              if ($(this).scrollTop() > 60){
+                $("#back-to-top").fadeIn();
+              }else{
+                $('#back-to-top').fadeOut();
+              }
+
+           });
+
+            //#back-to-topがクリックされたら上に戻る
+            // animateメソッドを使用
+            $('#back-to-top a').click(function() {
+            $('html, body').animate({
+              scrollTop:0
+             }, 800);
+             return false;
+          });
+
+     });
