@@ -2,57 +2,77 @@
 <html>
   <head>
     <title>EventSharing</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
-    <!-- google fonts css読み込み -->
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet">
-    <!-- ここまで -->
+      <!-- google fonts css読み込み -->
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
+      <!-- ここまで -->
+
+      <!-- ＃リンクのスムーズスクロール -->
+    <script>
+      $(function(){
+        // #で始まるリンクをクリックしたら実行されます
+        $('a[href^="#"]').click(function() {
+          // スクロールの速度
+          var speed = 400; // ミリ秒で記述
+          var href= $(this).attr("href");
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          var position = target.offset().top;
+          $('body,html').animate({scrollTop:position}, speed, 'swing');
+          return false;
+        });
+      });
+    </script>
 
   </head>
 
   <body>
     <header>
-        <nav class="nav-tag">
-            <%= link_to root_path do %>
-              <%= image_tag "event_sharing.jpg" %>
-             <% end %>
-
-              <% if user_signed_in? %>
-                <div class="search">
-                  <dl class="searchbox">
-                    <%= search_form_for @search, url: events_path do |f| %>
-                      <dt><%= f.text_field :title_cont ,placeholder: '検索するテキストを入力...' %></dt>
-                        <dd><%= f.submit ("検索") , class: 'search-btn'%></dd>
-                    <% end %>
-                  </dl>
-                </div>
-                <ul>
-                  <li>ようこそ、<%= current_user.name %>さん</li>
-                  <li><%= link_to ' イベント投稿', new_event_path %></li>
-                  <li><%= link_to ' マイページ', user_path(current_user) %></li>
-                  <li><%= link_to ' イベント一覧', events_path %></li>
-                  <li><%= link_to ' お問い合わせ', new_inquity_path %></li>
-                  <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete %></li>
-                </ul>
-              <% else %>
-                <ul>
-                  <li><%= link_to ' 新規登録', new_user_registration_path %></li>
-                  <li><%= link_to ' ログイン', new_user_session_path %></li>
-                </ul>
+      <nav class="nav-tag">
+        <!-- ロゴ記述 -->
+        <%= link_to root_path do %>
+          <%= image_tag "event_sharing.jpg" %>
+        <% end %>
+        <!-- ここまで -->
+        <% if user_signed_in? %>
+          <div class="search">
+            <dl class="searchbox">
+              <%= search_form_for @search, url: events_path do |f| %>
+                <dt><%= f.text_field :title_cont ,placeholder: '検索するテキストを入力...' %></dt>
+                  <dd><%= f.submit ("検索") , class: 'search-btn'%></dd>
               <% end %>
-        </nav>
-      </header>
+            </dl>
+          </div>
+            <ul>
+              <li>ようこそ、<%= current_user.name %>さん</li>
+              <li><%= link_to ' イベント投稿', new_event_path %></li>
+              <li><%= link_to ' マイページ', user_path(current_user) %></li>
+              <li><%= link_to ' イベント一覧', events_path %></li>
+              <li><%= link_to ' お問い合わせ', new_inquity_path %></li>
+              <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete %></li>
+            </ul>
+        <% else %>
+            <ul>
+              <li><a href="#about">about</a></li>
+              <li><%= link_to ' 新規登録', new_user_registration_path %></li>
+              <li><%= link_to ' ログイン', new_user_session_path %></li>
+            </ul>
+        <% end %>
+      </nav>
+    </header>
     <%= yield %>
-
+    <!-- イベントスクロール記述 -->
     <div id="back-to-top" style="position:fixed;right:25px;bottom:5px">
       <a href="#"><i class="fas fa-angle-double-up fa-5x"></i></a></div>
+    <!-- ここまで -->
 
-     <footer class="top-footer">
+    <footer class="top-footer">
       <div class="container">
         <div class="d-flex justify-content-center footer">
           <p class="mb-0 copyright">Copyright(c)  2020 Event-Sharing Co.,Ltd</p>

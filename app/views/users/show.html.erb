@@ -19,9 +19,9 @@
             <td><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no-image.jpg", class: 'no-image-item') %></td>
             <td><%= @user.name %></td>
             <td><%= @user.introduction %></td>
-            <% if @user.id == current_user.id %>
-            <td><%= link_to "プロフィールを編集する", edit_user_path(@user.id) %></td>
-            <% end %>
+              <% if @user.id == current_user.id %>
+                <td><%= link_to "プロフィールを編集する", edit_user_path(@user.id) %></td>
+              <% end %>
           </tr>
         </tbody>
       </table>
