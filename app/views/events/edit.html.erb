@@ -1,8 +1,7 @@
 <div class="wrapper">
-<h1>イベント編集画面</h1>
-
-<%= render 'form', event: @event %>
-
-<%= link_to 'イベント詳細画面へ', @event %> |
-<%= link_to '戻る', events_path %>
+  <h1>イベント編集画面</h1>
+  <!-- イベント編集フォーム部分テンプレート -->
+    <%= render 'form', event: @event %>
+      <%= link_to 'イベント詳細画面へ', @event %> |
+      <%= link_to 'イベント一覧画面へ', events_path %>
 </div>

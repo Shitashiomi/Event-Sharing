@@ -1,53 +1,57 @@
  <div class="wrapper">
   <%= form_with(model: event, local: true) do |form| %>
+
+  <!-- バリデーションチェックここから -->
     <% if event.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-        <ul>
-          <% event.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
+          <ul>
+            <% event.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
       </div>
     <% end %>
+   <!-- ここまで -->
 
-    <div class="field">
-      <%= form.file_field :image %>
-    </div>
+    <div class="new-content">
+      <div class="field">
+        <%= form.file_field :image, class:"new-img" %>
+      </div>
 
-    <div class="field">
-      <%= form.label :イベントタイトル %>
-      <%= form.text_field :title, placeholder: "イベントタイトル", :size => "40*40"%>
-    </div>
+      <div class="field">
+        <%= form.label :イベントタイトル %>
+        <%= form.text_field :title, placeholder: "イベントタイトル", :size => "40*40"%>
+      </div>
 
-    <div class="field">
-      <%= form.label :開催場所 %>
-      <%= form.text_field :address, placeholder: "(例) 奈良公園", :size => "40*40" %>
-    </div>
+      <div class="field">
+        <%= form.label :開催場所 %>
+        <%= form.text_field :address, placeholder: "(例) 奈良公園", :size => "40*40" %>
+      </div>
 
-    <div class="field">
-      <%= form.label :ジャンル選択 %>
-      <%= form.select :genre,["イベント","お祭り","マルシェ","花火大会","フリーマーケット","フェス"], include_blank: "選択して下さい" %>
-    </div>
+      <div class="field">
+        <%= form.label :ジャンル選択 %>
+        <%= form.select :genre,["イベント","お祭り","マルシェ","花火大会","フリーマーケット","フェス"], include_blank: "選択して下さい" %>
+      </div>
 
-    <div class="field">
-      <%= form.label :イベント内容 %>
-      <%= form.text_area :description, placeholder: "イベント内容を記載してください", :size => "40*40" %>
-    </div>
+      <div class="field">
+        <%= form.label :イベント内容 %>
+        <%= form.text_area :description, placeholder: "(例)イベント内容・入場料・駐車場があれば記載してください", :size => "70*100" %>
+      </div>
 
-    <div class="field">
-      <%= form.label :開催日＆時間 %>
-      <%= form.datetime_select :start_date %>
-    </div>
+      <div class="field">
+        <%= form.label :開催日＆時間 %>
+        <%= form.datetime_select :start_date %>
+      </div>
 
-    <div class="field">
-      <%= form.label :終了日＆時間 %>
-      <%= form.datetime_select :end_date %>
-    </div>
+      <div class="field">
+        <%= form.label :終了日＆時間 %>
+        <%= form.datetime_select :end_date %>
+      </div>
 
-    <div class="actions">
-      <%= form.submit "登録する", class:"btn btn-primary btn-md" %>
+      <div class="actions">
+        <%= form.submit "登録する", class:"btn btn-primary btn-md" %>
+      </div>
     </div>
   <% end %>
 </div>

@@ -9,7 +9,11 @@
         <div class="image3"></div>
         <div class="image4"></div>
       </div>
-      <div class="text">忘れられない思い出、作りませんか？</div>
+      <div class="text">
+        <ul>
+          <li>忘れられない思い出、作りませんか？</li>
+        </ul>
+      </div>
     </div>
     <!-- ここまで -->
 
@@ -19,54 +23,54 @@
         <p>イベントを探したい人＆イベントに出店したい人のためのサイトです</p>
     </div>
 
-      <div class="row about-row">
-        <div class="col-xs-12 about-text text-center">
-          <h2 class="text-center">Event-Sharingでできること</h2>
-            <div class="col-xs-4">
-              <i class="fas fa-paper-plane fa-4x"></i>
-                <h2>Post</h2>
-            </div>
-            <div class="col-xs-4">
-              <i class="far fa-calendar-alt fa-4x"></i>
-                <h2>View</h2>
-            </div>
-            <div class="col-xs-4">
-              <i class="far fa-comments fa-4x"></i>
-                <h2>Contact</h2>
+  <div id="about">
+    <div class="row about-row">
+      <div class="col-xs-12 about-text text-center">
+        <h2 class="text-center">Event-Sharingでできること</h2>
+          <div class="col-xs-4">
+            <i class="fas fa-paper-plane fa-4x"></i>
+              <h2>Post</h2>
+          </div>
+          <div class="col-xs-4">
+            <i class="far fa-calendar-alt fa-4x"></i>
+              <h2>View</h2>
+          </div>
+          <div class="col-xs-4">
+            <i class="far fa-comments fa-4x"></i>
+              <h2>Contact</h2>
+          </div>
+      </div>
+
+      <div class="container3">
+        <div class="content">
+          <%= image_tag "box12.png", class: "top_image1" %>
+            <div class="row justify-content-center text-center d-flex align-items-center my-5 back__white p-5 rounded-pill">
+              <div class="col-lg-5 partition">
+                <i class="fas fa-paper-plane fa-4x" aria-hidden="true"></i>
+                  <h4 class="m-2">Post</h4>
+              </div>
+              <div class="col-lg">
+                <h4><b>イベントを投稿しよう</b></h4>
+                    <p>大きな祭りから小さなイベントまで、どんなイベントでも構いません。<br>
+                     自分が知っているイベントを投稿してみんなに楽しさを共有してください。</p>
+              </div>
             </div>
         </div>
 
-        <div class="container3">
 
-          <div class="content">
-            <%= image_tag "box12.png", class: "top_image1" %>
-              <div class="row justify-content-center text-center d-flex align-items-center my-5 back__white p-5 rounded-pill">
-                <div class="col-lg-5 partition">
-                  <i class="fas fa-paper-plane fa-4x" aria-hidden="true"></i>
-                    <h4 class="m-2">Post</h4>
-                </div>
-                  <div class="col-lg">
-                    <h4><b>イベントを投稿しよう</b></h4>
-                     <p>大きな祭りから小さなイベントまで、どんなイベントでも構いません。<br>
-                     自分が知っているイベントを投稿してみんなに楽しさを共有してください。</p>
-                  </div>
+        <div class="content">
+          <%= image_tag "box11.png", class: "top_image2" %>
+            <div class="row justify-content-center text-center d-flex align-items-center my-5 back__white p-5 rounded-pill">
+              <div class="col-lg-5 partition">
+                <i class="far fa-calendar-alt fa-4x" aria-hidden="true"></i>
+                  <h4 class="m-2">View</h4>
               </div>
-          </div>
-
-
-          <div class="content">
-            <%= image_tag "box11.png", class: "top_image2" %>
-              <div class="row justify-content-center text-center d-flex align-items-center my-5 back__white p-5 rounded-pill">
-                <div class="col-lg-5 partition">
-                  <i class="far fa-calendar-alt fa-4x" aria-hidden="true"></i>
-                    <h4 class="m-2">View</h4>
-                </div>
-                <div class="col-lg">
-                  <h4><b>イベントを探そう</b></h4>
-                    <p>他ユーザーが投稿した記事やトピックをカレンダーより閲覧することができます。<br>
+              <div class="col-lg">
+                <h4><b>イベントを探そう</b></h4>
+                  <p>他ユーザーが投稿した記事をカレンダーより閲覧することができます。<br>
                     また、投稿に対して「いいね」や、コメントすることができます。</p>
-   　           </div>
-              </div>
+   　         </div>
+            </div>
           </div>
 
           <div class="content">
@@ -83,8 +87,9 @@
    　           </div>
   　          </div>
           </div>
-      </div>
-         <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success" %>
-         <%= link_to "ログイン", new_user_session_path, class: "btn btn-info" %>
+        </div>
     </div>
+          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success" %>
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-info" %>
+  </div>
 </div>
