@@ -5,22 +5,11 @@
         <div class="show-event-container">
           <%= attachment_image_tag(@event, :image, :fill, 300, 400, fallback: "no-image.jpg") %>
 
-            <!-- いいね機能の実装 -->
-            <div class="favorite-content">
-              <% if @event.favorited_by?(current_user) %>
-                <%= link_to event_favorites_path(@event), method: :delete do %>
-                  <i class="far fa-thumbs-up" aria-hidden="true" style="color: red;"></i>
-                    <%= @event.favorites.count %> いいね
-                <% end %>
-              <% else %>
-                <%= link_to event_favorites_path(@event), method: :post do %>
-                  <i class="fas fa-thumbs-up" aria-hidden="true"></i>
-                    <%= @event.favorites.count %> いいね
-                <% end %>
-              <% end %>
-            </div>
-        </div>
-        <!-- ここまで -->
+         <!-- いいね機能非同期通信部分テンプレート -->
+          <div id="favorites_buttons_<%= @event.id %>">
+             <%= render partial: 'favorites/favorite', locals: { event: @event } %>
+          </div>
+          <!-- ここまで -->
 
       <table class="table table-bordered">
         <tbody>
@@ -94,34 +83,25 @@
       </table>
     </div>
 
-    <div class="event-comment">
-      <%= form_for [@event,@event_comment] do |f| %>
-        <%= f.text_area :comment, placeholder: "コメントを書いてください",:size => "40*40" %>
-        <%= f.submit "コメント送信",class: "btn btn-sx btn-warning" %>
+    <!-- コメントの非同期通信部分テンプレート -->
+    <div class="row">
+      <% if user_signed_in? %>
+        <div class="comment-create">
+          <%= render partial: 'event_comments/form', locals: { event_comment: @event_comment, event: @event } %>
+        </div>
       <% end %>
 
-      <!-- コメント表示のテーブル記述 -->
-      <table>
-        <% @event.event_comments.each do |event_comment| %>
-          <tr>
-            <td class="show-comment">
-              <%= link_to user_path(event_comment.user), class: "user_#{event_comment.user.id}" do %>
-                <%= attachment_image_tag(event_comment.user, :profile_image, :fill,50, 50, fallback: "no-image.jpg", class: 'no-image-item') %><br>
-                <%= event_comment.user.name %>
-              <% end %>
-            </td>
-            <td class="show-comment">
-              <%= event_comment.comment %>
-            </td>
-              <% if event_comment.user.id == current_user.id %>
-                <td><%= link_to "コメント削除", event_event_comment_path(event_comment.event,event_comment), method: :delete, class: "btn btn-danger pull-right" %>
-                </td>
-              <% end %>
-          </tr>
-        <% end %>
-      </table>
-      <!-- ここまで -->
-
+      <ul>
+        <li class="comment-create">
+          <h3 class="text-left title">レビュー</h3>
+        </li>
+        <li id="comments_area">
+          <%= render partial: 'event_comments/index', locals: { comments: @comments } %>
+        </li>
+      </ul>
+    </div>
+    <!-- ここまで -->
+    <div class="event-content">
       <% if @event.user.id == current_user.id %>
         <p><%= link_to 'このイベントを削除しますか？', @event, method: :delete, data: { confirm: "本当に削除しますか?" } %></p>
         <p><%= link_to 'イベント編集', edit_event_path(@event) %></p>

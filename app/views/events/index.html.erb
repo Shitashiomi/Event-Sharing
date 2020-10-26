@@ -33,7 +33,6 @@
 
                             <li><span>イベントジャンル</span>
                               <%= event.genre %></li>
-
                             <li><%= link_to "#{event.event_comments.count}", event_path(event.id), class: "far fa-comments fa-1x" %></li>
                             <li><%= link_to "#{event.favorites.count}", event_path(event.id), class: "fas fa-thumbs-up fa-1x" %></li>
                             <li><%= link_to '詳細を見る', event %></li>
