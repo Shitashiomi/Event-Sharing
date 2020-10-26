@@ -1,0 +1,5 @@
+<div class="event-comment">
+  <%= form_with(model: [@event,@event_comment], url: event_event_comments_path(@event) ) do |f| %>
+    <%= f.text_area :comment, placeholder: "コメントを書いてください",:size => "40*40" %>
+    <%= f.submit "コメント送信",class: "btn btn-sx btn-warning" %>
+  <% end %>

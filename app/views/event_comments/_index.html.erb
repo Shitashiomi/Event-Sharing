@@ -1,0 +1,21 @@
+<!-- コメント表示のテーブル記述 -->
+      <table>
+        <% @event.event_comments.each do |event_comment| %>
+          <tr>
+            <td class="show-comment">
+              <%= link_to user_path(event_comment.user), class: "user_#{event_comment.user.id}" do %>
+                <%= attachment_image_tag(event_comment.user, :profile_image, :fill,50, 50, fallback: "no-image.jpg", class: 'no-image-item') %><br>
+                <%= event_comment.user.name %>
+              <% end %>
+            </td>
+            <td class="show-comment">
+              <%= event_comment.comment %>
+            </td>
+              <% if event_comment.user.id == current_user.id %>
+                <td><%= link_to "コメント削除", event_event_comment_path(event_comment.event_id,event_comment.id), method: :delete, remote: true, class: "btn btn-danger pull-right" %>
+                </td>
+              <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <!-- ここまで -->
