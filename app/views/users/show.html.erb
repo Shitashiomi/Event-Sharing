@@ -26,37 +26,7 @@
         </tbody>
       </table>
 
-      <% @events.each do |event| %>
-        <%= link_to(event_path(event), class: 'event-list') do %>
-          <div class="events">
-            <h3><%= event.title %></h3>
-              <div class="event_content">
-                <div class="event_img">
-                  <%= attachment_image_tag(event, :image, :fill, 100, 100, fallback: "no-image.jpg") %>
-                </div>
-
-                <div class="event_schedule">
-                  <ul>
-                    <li><span>開催場所</span>
-                      <%= event.address %></li>
-                    <li><span>開始日程</span>
-                      <%= event.start_date.strftime('%Y/%m/%d %H:%M') %></li>
-                    <li><span>終了日程</span>
-                      <%= event.end_date.strftime('%Y/%m/%d %H:%M') %></li>
-                    <li><span>イベントジャンル</span>
-                      <%= event.genre %></li>
-                    <li><%= link_to "#{event.event_comments.count}", event_path(event.id), class: "far fa-comments fa-1x" %></li>
-                    <li><%= link_to "#{event.favorites.count}", event_path(event.id), class: "fas fa-thumbs-up fa-1x" %></li>
-                    <li><%= link_to '詳細を見る', event %></li>
-                    <% if @user.id == current_user.id %>
-                      <li><%= link_to 'このイベントを編集する', edit_event_path(event) %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
+     <%= render partial: 'events/list', locals: {events: @events, view_rank: false } %>
       </div>
     </div>
   </div>

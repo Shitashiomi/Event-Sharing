@@ -10,11 +10,11 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+
  *= require fullcalendar
  *= require skippr
  */
+@import "home/*";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -125,104 +125,13 @@ body {
   margin-right: 30px;
 }
 
-#container1 {
-  position: relative;
-  height: 600px;
-  width: 100%;
-  margin:50px auto;
-}
 
-#container1 .text li {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: calc(50% - 25px);
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: 50px;
-  line-height: 50px;
-  animation: text1 3s ease;
-}
-
-@keyframes text1 {
-    0% {
-        opacity:  0;
-    }
-    100% {
-        opacity:  1;
-    }
-}
 
 .top_text h2,.top_text p {
   text-align: center;
   font-size: 20px;
 }
 
-#container2{
-  padding: 50px;
-  width: 700px;
-  margin:0 auto;
-  background-color: white;
-  border:3px solid black;
-}
-
-td.fc-sat {
-    background-color: #eaf4ff;
-}
-td.fc-sun {
-    background-color: #ffeaea;
-}
-
-
-.image1 {
-  background-image: image-url("box8.jpg");
-}
-
-.image2 {
-  background-image: image-url("hanabi.jpg");
-}
-
-.image3 {
-  background-image: image-url("yoyo.jpg");
-}
-
-.image4 {
-  background-image: image-url("toukae.jpg");
-}
-
-
-.top_image1 {
-  width: 100%;
-  height:300px;
-  margin-bottom: 20px;
-  border-radius: 1rem;
-}
-
-.top_image2 {
-  width: 100%;
-  height:300px;
-  margin-bottom: 20px;
-  border-radius: 1rem;
-}
-
-.top_image3 {
-  width: 100%;
-  height:300px;
-  border-radius: 1rem;
-}
-.container3 {
-  max-width: 100%;
-  display: flex;
-}
-
-.content {
-  margin: 10px 10px;
-}
-
-.effect content1 {
-  transition: .8s;
-}
 
 .top-footer {
     height: 80px;
@@ -274,12 +183,13 @@ dl.searchbox dd{
 }
 
 
-
 li {
   list-style: none;
   padding: 5px 10px;
   font-size: 15px;
 }
+
+
 
 .events {
   border:3px black solid;
@@ -325,53 +235,6 @@ li username {
     flex-wrap: wrap;
 }
 
-.text-center {
-    text-align: center;
-}
-
-.p-5 {
-    padding: 3rem;
-    height: 300px;
-    width:100%;
-}
-
-.mb-5, .my-5 {
-    margin-bottom: 3rem;
-}
-
-.mt-5, .my-5 {
-    margin-top: 3rem;
-}
-
-.align-items-center {
-    align-items: center;
-}
-
-.justify-content-center {
-    justify-content: center;
-}
-
-.d-flex {
-    display: flex;
-}
-
-
-
-.back__white {
-    background-color: white;
-}
-
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-.col-xl, .col-xl-auto, .col-xl-12, .col-xl-11, .col-xl-10, .col-xl-9, .col-xl-8, .col-xl-7, .col-xl-6, .col-xl-5, .col-xl-4, .col-xl-3, .col-xl-2, .col-xl-1, .col-lg, .col-lg-auto, .col-lg-12, .col-lg-11, .col-lg-10, .col-lg-9, .col-lg-8, .col-lg-7, .col-lg-6, .col-lg-5, .col-lg-4, .col-lg-3, .col-lg-2, .col-lg-1, .col-md, .col-md-auto, .col-md-12, .col-md-11, .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2, .col-md-1, .col-sm, .col-sm-auto, .col-sm-12, .col-sm-11, .col-sm-10, .col-sm-9, .col-sm-8, .col-sm-7, .col-sm-6, .col-sm-5, .col-sm-4, .col-sm-3, .col-sm-2, .col-sm-1, .col, .col-auto, .col-12, .col-11, .col-10, .col-9, .col-8, .col-7, .col-6, .col-5, .col-4, .col-3, .col-2, .col-1 {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    border-radius: 1rem;
-}
 
 
 
@@ -415,6 +278,12 @@ li username {
 .btn-inpuity {
   width: 220px;
   margin-top: 30px;
+}
+
+.btn-warning {
+  width: 220px;
+  display: block;
+  margin: 20px auto;
 }
 
 .new_event_btn {
