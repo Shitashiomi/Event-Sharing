@@ -4,7 +4,4 @@ class HomesController < ApplicationController
 	  @events = Event.all
 	end
 
-	def about
-	end
-
 end

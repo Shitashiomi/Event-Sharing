@@ -101,6 +101,7 @@
       </ul>
     </div>
     <!-- ここまで -->
+
     <div class="event-content">
       <% if @event.user.id == current_user.id %>
         <p><%= link_to 'このイベントを削除しますか？', @event, method: :delete, data: { confirm: "本当に削除しますか?" } %></p>
