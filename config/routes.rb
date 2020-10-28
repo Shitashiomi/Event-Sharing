@@ -5,10 +5,6 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions'
   }
 
-  devise_scope :user do
-    post '/users/guest_sign_in', to: 'users/sessions#new_guest'
-  end
-
   get 'homes/about'
   resources :users,only: [:show,:edit,:update]
   resources :inquities,only: [:new, :create]

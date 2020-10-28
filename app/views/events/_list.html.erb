@@ -1,7 +1,7 @@
 <% events.each.with_index(1) do |event, i| %>
 <% if view_rank %>
   <p>ランク：<b><%= i %>位</b></p>
-  <% end %>
+<% end %>
   <%= link_to(event_path(event), class: 'event-list') do %>
     <div class="events">
       <h3><%= event.title %></h3>
